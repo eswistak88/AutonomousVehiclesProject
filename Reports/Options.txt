@@ -1,0 +1,5 @@
+1. Gather data on different types of anomalies from the Carrera Bahn and test same models on those datasets with our same models.
+2. Implement F2MD and reproduce the results of Joseph Kamel's experiments.(doesn't really have much to do with HTM either, maybe we could tweak the existing LSTM model)
+3. Find the best classifier for the Veremi dataset, probably would involve comparing an LSTM classifier trained on raw data vs plausability scores.(this has nothing to do with HTM)
+4. Compare an LSTMAutoencoder to HTM on Veremi but we know that they will probably both fail miserably because of the categorical variables
+5. Implement tiling to remove the issue of categorical variables somewhat, test that on HTM and LSTMAutoencoder

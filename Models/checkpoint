@@ -1,0 +1,2 @@
+model_checkpoint_path: "LSTM__Autoencoder_model_Veremi"
+all_model_checkpoint_paths: "LSTM__Autoencoder_model_Veremi"
