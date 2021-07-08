@@ -15,8 +15,8 @@ EPOCHS = 1
 BATCH_SIZE = 128
 NUM_FEATS = 26
 
-TRAIN_DATA_LOCATION = resolve_shortcut('Datasets/Veremi/DataReplaySybil_0709 - Shortcut.lnk', '/VeReMi_25200_28800_2019-11-27_16_31_14')
-TEST_DATA_LOCATION = resolve_shortcut('Datasets/Veremi/DataReplaySybil_0709 - Shortcut.lnk', '/VeReMi_28800_32400_2019-11-27_16_31_14')
+TRAIN_DATA_LOCATION = resolve_shortcut('Datasets/Veremi/DataReplaySybil_0709.lnk', '/VeReMi_25200_28800_2019-11-27_16_31_14')
+TEST_DATA_LOCATION = resolve_shortcut('Datasets/Veremi/DataReplaySybil_0709.lnk', '/VeReMi_28800_32400_2019-11-27_16_31_14')
 MODEL_LOCATION = 'Models/LSTM__Autoencoder_model_Veremi_NoTIle'
 LOG_LOCATION = 'Notebooks/Veremi/DataReplaySybil_0709/'
 RESULTS_LOCATION = 'Notebooks/Veremi/DataReplaySybil_0709/'

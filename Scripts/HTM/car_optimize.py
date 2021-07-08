@@ -13,8 +13,10 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
 
-dir = os.getcwd()
-os.chdir('../../Other Peoples Code/htm.core-master/py')
+base_dir = 'C:/Users/Ethan Swistak/OneDrive/Ulm/Summer 2021/Autonomous Vehicles Project/Project'
+os.chdir(base_dir)
+
+os.chdir('Other Peoples Code/htm.core-master/py')
 from htm.bindings.sdr import SDR, Metrics
 from htm.encoders.rdse import RDSE, RDSE_Parameters
 from htm.encoders.date import DateEncoder
@@ -26,7 +28,7 @@ from htm.bindings.algorithms import Predictor
 os.chdir(dir)
 _EXAMPLE_DIR = os.path.dirname(os.path.abspath(__file__))
 _INPUT_FILE_PATH = os.path.join(_EXAMPLE_DIR, "car2data.csv")
-os.chdir('../../Other Peoples Code/htm.core-master/py')
+os.chdir('Other Peoples Code/htm.core-master/py')
 
 default_parameters = {'enc': 
                      {'acceleration': {

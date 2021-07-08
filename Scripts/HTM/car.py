@@ -20,11 +20,13 @@ from htm.bindings.algorithms import TemporalMemory
 from htm.algorithms.anomaly_likelihood import AnomalyLikelihood #FIXME use TM.anomaly instead, but it gives worse results than the py.AnomalyLikelihood now
 from htm.bindings.algorithms import Predictor
 
+base_dir = 'C:/Users/Ethan Swistak/OneDrive/Ulm/Summer 2021/Autonomous Vehicles Project/Project'
+os.chdir(base_dir)
 
-_EXAMPLE_DIR = os.path.dirname(os.path.abspath(__file__))
+_EXAMPLE_DIR = 'Datasets/Carrera'
 _INPUT_FILE_PATH = os.path.join(_EXAMPLE_DIR, "car2data.csv")
 
-os.chdir('../../Other Peoples Code/htm.core-master/py.')
+os.chdir('Other Peoples Code/htm.core-master/py.')
 
 default_parameters = {
  'enc': {

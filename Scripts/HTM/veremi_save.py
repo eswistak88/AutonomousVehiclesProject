@@ -21,8 +21,12 @@ from htm.algorithms.anomaly_likelihood import AnomalyLikelihood #FIXME use TM.an
 from htm.bindings.algorithms import Predictor
 
 
-_EXAMPLE_DIR = os.path.dirname(os.path.abspath(__file__))
-_INPUT_FILE_PATH = os.path.join(_EXAMPLE_DIR, "merged.csv")
+base_dir = 'C:/Users/Ethan Swistak/OneDrive/Ulm/Summer 2021/Autonomous Vehicles Project/Project'
+os.chdir(base_dir)
+
+_DATA_DIR = 'Datasets/Veremi/ConstPos_0709'
+_INPUT_FILE_PATH = os.path.join(_DATA_DIR, "combined1.csv")
+
 """
 default_parameters = {
  'enc': {

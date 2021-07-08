@@ -11,7 +11,7 @@ import sklearn.metrics
 train_features_car1 = []
 train_features_car2 = []
 
-csv_reader = csv.reader(open('../../Datasets/DataSet/8/data.log'), delimiter=',')
+csv_reader = csv.reader(open('Datasets/Carrera/8/data.log'), delimiter=',')
 for row in csv_reader:
 	try:
 		if(re.match(".*INFO - 1", row[1])):
@@ -61,15 +61,15 @@ model = tf.keras.Sequential([tf.keras.layers.InputLayer(batch_input_shape=(128,7
 model.compile(optimizer='RMSProp', loss='mae')
 model.summary()
 try:
-   model.load_weights('../../Models/LSTM__Autoencoder_model_compare')
+   model.load_weights('Models/LSTM_Auto/ModelCompare/model')
 except:
    model.fit(
       tf.data.Dataset.zip((train_x, train_y)).padded_batch(128,padded_shapes=((7,1),(7,1)), drop_remainder=True),
 	   epochs=200,
        shuffle=False,
-		callbacks=[tf.keras.callbacks.CSVLogger('../../Notebooks/autoencoder_compare_log.csv'),
+		callbacks=[tf.keras.callbacks.CSVLogger('Notebooks/Carrera/LSTM_Auto/autoencoder_compare_log.csv'),
 	               tf.keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.5, patience=50),
-	               tf.keras.callbacks.ModelCheckpoint('../../Models/LSTM__Autoencoder_model_compare', monitor='loss', mode='min',save_best_only=True, save_weights_only=True)]
+	               tf.keras.callbacks.ModelCheckpoint('Models/LSTM__Auto/ModelCompare/model', monitor='loss', mode='min',save_best_only=True, save_weights_only=True)]
    )
 
 train_predictions = model.predict(train_x.padded_batch(128, padded_shapes=(7,1), drop_remainder=True))
@@ -86,8 +86,8 @@ a = False
 START_CUTOFF = 0
 
 for trial in [i for i in range(7,8)]:
-   csv_reader = csv.reader(open('../../Datasets/DataSet/' + str(trial) + '/data.log'), delimiter=',')
-   meta = open('../../Datasets/DataSet/' + str(trial) + '/META')
+   csv_reader = csv.reader(open('Datasets/Carrera/' + str(trial) + '/data.log'), delimiter=',')
+   meta = open('Datasets/Carrera/' + str(trial) + '/META')
    params = meta.read()
    ATTACK_ONSET = int(re.search('\tATTACK_ONSET = (\\d\\d)', params).group(1))
    ATTACK_DURATION = int(re.search('\tATTACK_DURATION = (\\d\\d)', params).group(1))
@@ -145,4 +145,4 @@ df['predictions'] = anomaly_labels
 df['labels'] = label_df
 
 df[['position','velocity', 'acceleration', 'predecessor_distance', 'predictions', 'labels']][df['car#']==1].plot(subplots=True, layout=(6,1))
-plt.savefig('../../Reports/AutoEncoderCompareResult1.png')
+plt.savefig('Reports/LineCharts/LSTM-Auto/AutoEncoderCompareResult1.png')

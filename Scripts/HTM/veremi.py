@@ -20,9 +20,11 @@ from htm.bindings.algorithms import TemporalMemory
 from htm.algorithms.anomaly_likelihood import AnomalyLikelihood #FIXME use TM.anomaly instead, but it gives worse results than the py.AnomalyLikelihood now
 from htm.bindings.algorithms import Predictor
 
+base_dir = 'C:/Users/Ethan Swistak/OneDrive/Ulm/Summer 2021/Autonomous Vehicles Project/Project'
+os.chdir(base_dir)
 
-_EXAMPLE_DIR = os.path.dirname(os.path.abspath(__file__))
-_INPUT_FILE_PATH = os.path.join(_EXAMPLE_DIR, "merged.csv")
+_DATA_DIR = 'Datasets/Veremi/ConstPos_0709'
+_INPUT_FILE_PATH = os.path.join(_DATA_DIR, "combined1.csv")
 """
 default_parameters = {
  'enc': {
@@ -424,7 +426,7 @@ def main(parameters=default_parameters, argv=None, verbose=True):
   plt.ylabel("Anomaly Predicted")
   plt.bar(np.arange(len(anoscore)), anoscore, color='red',width=1)
 
-  plt.savefig('line_plot_hq.png', dpi=300)  
+  plt.savefig('Reports/LineCharts/HTM/Veremi/ConstPos/line_plot_hq.png', dpi=300)
 
 
   return -1

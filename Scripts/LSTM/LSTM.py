@@ -3,7 +3,6 @@ import re
 import pandas as pd
 import numpy as np
 import tensorflow as tf
-from sklearn.metrics import f1_score
 import matplotlib.pyplot as plt
 
 
@@ -28,8 +27,8 @@ for trial in [i for i in range(1,8)]:
    else:
       features = test_features
       labels = test_labels
-   csv_reader = csv.reader(open('../Datasets/DataSet/' + str(trial) + '/data.log'), delimiter=',')
-   meta = open('../Datasets/DataSet/' + str(trial) + '/META')
+   csv_reader = csv.reader(open('Datasets/Carrera/' + str(trial) + '/data.log'), delimiter=',')
+   meta = open('Datasets/Carrera/' + str(trial) + '/META')
    params = meta.read()
    meta.close()
    ATTACK_ONSET = int(re.search('\tATTACK_ONSET = (\\d\\d)', params).group(1))
@@ -103,7 +102,7 @@ model = tf.keras.Sequential([tf.keras.layers.InputLayer(batch_input_shape=(128,7
 model.compile(optimizer='RMSProp', loss='binary_crossentropy', metrics=[tf.keras.metrics.Precision(), tf.keras.metrics.Recall(), F1_Score()])
 model.summary()
 try:
-   model.load_weights('LSTM_model')
+   model.load_weights('ModelsL/Carrera/LSTM/model')
 except:
    model.fit(
        train.padded_batch(128,padded_shapes=((7,1),()), drop_remainder=True),
@@ -111,16 +110,16 @@ except:
        epochs=200,
        shuffle=False,
 	    class_weight={0: 1/6, 1: 5/6},
-	    callbacks=[tf.keras.callbacks.CSVLogger('log.csv'),
+	    callbacks=[tf.keras.callbacks.CSVLogger('Notebooks/Carrera/LSTM/log.csv'),
 	               tf.keras.callbacks.ReduceLROnPlateau(monitor='val_F1', factor=0.5, patience=50),
-	               tf.keras.callbacks.ModelCheckpoint('LSTM_model', monitor='val_F1', mode='max', save_best_only=True, save_weights_only=True)]
+	               tf.keras.callbacks.ModelCheckpoint('Models/Carrera/LSTM/model', monitor='val_F1', mode='max', save_best_only=True, save_weights_only=True)]
    )
 
-model.load_weights('LSTM_model')
+model.load_weights('Models/Carrera/LSTM/model')
 model.evaluate(test.padded_batch(128, padded_shapes=((7,1),()), drop_remainder=True))
 predictions = np.ravel(model.predict(test_x.padded_batch(128, padded_shapes=(7,1), drop_remainder=True)))
 df = pd.DataFrame(predictions)
-df.to_csv('test_results.csv', index=False)
+df.to_csv('Notebooks/Carrera/LSTM/test_results.csv', index=False)
 
 df = pd.DataFrame(test_features,
                    columns=['car#', 'position','velocity','acceleration','predecessor_distance','timestamp','delta_time'])
@@ -133,8 +132,8 @@ df.set_index(df['timestamp'])
 df['predictions'] = predictions
 df['labels'] = label_df
 df[['position','velocity','acceleration','predecessor_distance','predictions','labels']][df['car#']==1].plot(subplots=True, layout=(6,1))
-plt.savefig('result1.png')
+plt.savefig('Reports/LineCharts/LSTM/result1.png')
 df[['position','velocity','acceleration','predecessor_distance','predictions','labels']][df['car#']==2].plot(subplots=True, layout=(6,1))
-plt.savefig('result2.png')
+plt.savefig('Reports/LineCharts/LSTM/result2.png')
 df[['position','velocity','acceleration','predecessor_distance','predictions','labels']][df['car#']==3].plot(subplots=True, layout=(6,1))
-plt.savefig('result3.png')
+plt.savefig('Reports/LineCharts/LSTM/result3.png')
